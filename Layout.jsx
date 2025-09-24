@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { createPageUrl } from "./utils";
-import { Home, User, Briefcase, Mail, Code, Award } from "lucide-react";
+import { Home, User, Briefcase, Mail, Code, Award, FileText } from "lucide-react";
 
 export default function Layout({ children, currentPageName }) {
   const location = useLocation();
@@ -12,7 +12,8 @@ export default function Layout({ children, currentPageName }) {
     { name: "Projects", url: createPageUrl("Projects"), icon: Code },
     { name: "Experience", url: createPageUrl("Experience"), icon: Briefcase },
     { name: "Certifications", url: createPageUrl("Certifications"), icon: Award },
-    { name: "Contact", url: createPageUrl("Contact"), icon: Mail }
+    { name: "Contact", url: createPageUrl("Contact"), icon: Mail },
+    { name: "Resume", url: "/resume.pdf", icon: FileText, external: true }
   ];
 
   return (
@@ -28,18 +29,31 @@ export default function Layout({ children, currentPageName }) {
             {/* Desktop Navigation */}
             <div className="hidden md:flex space-x-8">
               {navigationItems.map((item) => (
-                <Link
-                  key={item.name}
-                  to={item.url}
-                  className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                    location.pathname === item.url
-                      ? "bg-blue-100 text-blue-700"
-                      : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
-                  }`}
-                >
-                  <item.icon className="w-4 h-4" />
-                  {item.name}
-                </Link>
+                item.external ? (
+                  <a
+                    key={item.name}
+                    href={item.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors text-gray-600 hover:text-gray-900 hover:bg-gray-100"
+                  >
+                    <item.icon className="w-4 h-4" />
+                    {item.name}
+                  </a>
+                ) : (
+                  <Link
+                    key={item.name}
+                    to={item.url}
+                    className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                      location.pathname === item.url
+                        ? "bg-blue-100 text-blue-700"
+                        : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
+                    }`}
+                  >
+                    <item.icon className="w-4 h-4" />
+                    {item.name}
+                  </Link>
+                )
               ))}
             </div>
 
@@ -55,18 +69,31 @@ export default function Layout({ children, currentPageName }) {
           <div className="md:hidden border-t border-gray-200 py-2">
             <div className="flex flex-wrap gap-2">
               {navigationItems.map((item) => (
-                <Link
-                  key={item.name}
-                  to={item.url}
-                  className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                    location.pathname === item.url
-                      ? "bg-blue-100 text-blue-700"
-                      : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
-                  }`}
-                >
-                  <item.icon className="w-4 h-4" />
-                  {item.name}
-                </Link>
+                item.external ? (
+                  <a
+                    key={item.name}
+                    href={item.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors text-gray-600 hover:text-gray-900 hover:bg-gray-100"
+                  >
+                    <item.icon className="w-4 h-4" />
+                    {item.name}
+                  </a>
+                ) : (
+                  <Link
+                    key={item.name}
+                    to={item.url}
+                    className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                      location.pathname === item.url
+                        ? "bg-blue-100 text-blue-700"
+                        : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
+                    }`}
+                  >
+                    <item.icon className="w-4 h-4" />
+                    {item.name}
+                  </Link>
+                )
               ))}
             </div>
           </div>
