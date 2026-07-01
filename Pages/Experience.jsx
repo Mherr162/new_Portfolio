@@ -16,7 +16,7 @@ const experiences = [
     title: "Freelance Software Engineer",
     company: "Miami Therapy Group, LLC",
     location: "Miami, Florida",
-    period: "January 2025 - Present",
+    period: "January 2025 - January 2026",
     status: "Current",
     type: "Software Development",
     icon: Code,
