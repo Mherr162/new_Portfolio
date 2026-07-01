@@ -68,9 +68,9 @@ export const education = [
     degree: "Bachelor's degree, Computer Science",
     institution: "Florida International University",
     location: "Miami, Florida",
-    period: "2022 – Present",
+    period: "2022 – 2024",
     gpa: "3.72 / 4.00",
-    status: "In Progress",
+    status: "Completed",
   },
 ];
 
