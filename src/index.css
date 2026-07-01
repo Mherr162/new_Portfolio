@@ -15,9 +15,9 @@
   --text-subtle: #555558;
 
   /* Accent */
-  --accent: #e8b04b;
-  --accent-dim: rgba(232, 176, 75, 0.12);
-  --accent-glow: rgba(232, 176, 75, 0.25);
+  --color-accent: #e8b04b;
+  --color-accent-dim: rgba(232, 176, 75, 0.12);
+  --color-accent-glow: rgba(232, 176, 75, 0.25);
   --emerald: #4ade80;
   --emerald-dim: rgba(74, 222, 128, 0.12);
 
@@ -33,9 +33,6 @@
   --font-display: 'Fraunces', Georgia, serif;
   --font-body: 'Geist', 'Inter', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
-
-  /* Radius */
-  --radius: 0.75rem;
 
   /* Tailwind shadcn tokens — mapped to dark palette */
   --background: 0 0% 4%;           /* #0a0a0a */
@@ -93,7 +90,7 @@
 
 /* Gradient text */
 .text-gradient {
-  background: linear-gradient(135deg, var(--accent) 0%, #f5d08a 100%);
+  background: linear-gradient(135deg, var(--color-accent) 0%, #f5d08a 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -106,7 +103,7 @@
   font-weight: 500;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--color-accent);
 }
 
 /* Amber underline on hover for links */
@@ -120,7 +117,7 @@
   position: absolute;
   bottom: -2px; left: 0;
   width: 0; height: 1px;
-  background: var(--accent);
+  background: var(--color-accent);
   transition: width 0.25s ease;
 }
 .link-amber:hover::after { width: 100%; }
