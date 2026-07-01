@@ -120,7 +120,7 @@ export default function Experience() {
                   </h3>
                   <p className="text-base text-amber-400 font-medium">{edu.institution}</p>
                 </div>
-                <Badge className="bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 text-xs self-start">
+                <Badge variant={edu.status === 'In Progress' ? 'emerald' : 'secondary'}>
                   {edu.status}
                 </Badge>
               </div>

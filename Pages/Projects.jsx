@@ -40,7 +40,7 @@ function ProjectCard({ project, index }) {
 
           {/* Description */}
           <p className="text-sm text-text-secondary leading-relaxed flex-1">
-            {project.longDescription}
+            {project.longDescription || project.shortDescription}
           </p>
 
           {/* Tech badges */}
