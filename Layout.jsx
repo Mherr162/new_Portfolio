@@ -1,145 +1,249 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { createPageUrl } from "./utils";
-import { Home, User, Briefcase, Mail, Code, Award, FileText } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  Home,
+  User,
+  Briefcase,
+  Mail,
+  Code,
+  Award,
+  FileText,
+  Menu,
+  X,
+  Github,
+  Linkedin,
+  ExternalLink,
+  MessageSquare,
+} from "lucide-react";
+import { profile } from "./src/data/portfolio.js";
 
-export default function Layout({ children, currentPageName }) {
+const navigationItems = [
+  { name: "Home", url: "/Home", icon: Home },
+  { name: "About", url: "/About", icon: User },
+  { name: "Projects", url: "/Projects", icon: Code },
+  { name: "Experience", url: "/Experience", icon: Briefcase },
+  { name: "Certifications", url: "/Certifications", icon: Award },
+  { name: "Contact", url: "/Contact", icon: MessageSquare },
+];
+
+export default function Layout({ children }) {
   const location = useLocation();
+  const [isOpen, setIsOpen] = useState(false);
 
-  const navigationItems = [
-    { name: "Home", url: createPageUrl("Home"), icon: Home },
-    { name: "About", url: createPageUrl("About"), icon: User },
-    { name: "Projects", url: createPageUrl("Projects"), icon: Code },
-    { name: "Experience", url: createPageUrl("Experience"), icon: Briefcase },
-    { name: "Certifications", url: createPageUrl("Certifications"), icon: Award },
-    { name: "Contact", url: createPageUrl("Contact"), icon: Mail },
-    { name: "Resume", url: "/resume.pdf", icon: FileText, external: true }
-  ];
+  const isActive = (url) => {
+    if (url === "/Home") return location.pathname === "/" || location.pathname === "/Home";
+    return location.pathname === url;
+  };
+
+  const closeMenu = () => setIsOpen(false);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
+    <div className="grain min-h-screen" style={{ backgroundColor: "#0a0a0a" }}>
       {/* Fixed Navigation Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-200">
+      <header
+        className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md"
+        style={{
+          backgroundColor: "rgba(10,10,10,0.85)",
+          borderBottom: "1px solid rgba(255,255,255,0.06)",
+        }}
+      >
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <Link to={createPageUrl("Home")} className="font-bold text-xl text-gray-900">
+            {/* Brand */}
+            <Link
+              to="/Home"
+              className="font-display text-warm-white text-xl tracking-tight hover:text-amber transition-colors duration-200"
+            >
               Michel Herrera
             </Link>
-            
+
             {/* Desktop Navigation */}
-            <div className="hidden md:flex space-x-8">
+            <div className="hidden md:flex items-center space-x-1">
               {navigationItems.map((item) => (
-                item.external ? (
-                  <a
-                    key={item.name}
-                    href={item.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors text-gray-600 hover:text-gray-900 hover:bg-gray-100"
-                  >
-                    <item.icon className="w-4 h-4" />
-                    {item.name}
-                  </a>
-                ) : (
-                  <Link
-                    key={item.name}
-                    to={item.url}
-                    className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                      location.pathname === item.url
-                        ? "bg-blue-100 text-blue-700"
-                        : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
-                    }`}
-                  >
-                    <item.icon className="w-4 h-4" />
-                    {item.name}
-                  </Link>
-                )
+                <Link
+                  key={item.name}
+                  to={item.url}
+                  className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-mono tracking-wide transition-all duration-200 ${
+                    isActive(item.url)
+                      ? "text-amber border-b-2 border-amber bg-amber/5"
+                      : "text-muted-text hover:text-warm-white hover:bg-surface-hover"
+                  }`}
+                >
+                  <item.icon className="w-3.5 h-3.5" />
+                  {item.name}
+                </Link>
               ))}
+              {/* Resume — external link */}
+              <a
+                href="/resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-mono tracking-wide transition-all duration-200 text-muted-text hover:text-warm-white hover:bg-surface-hover"
+              >
+                <FileText className="w-3.5 h-3.5" />
+                Resume
+                <ExternalLink className="w-3 h-3 opacity-60" />
+              </a>
             </div>
 
-            {/* Mobile Navigation Button */}
-            <div className="md:hidden">
-              <button className="text-gray-600 hover:text-gray-900 p-2">
-                <Code className="w-6 h-6" />
-              </button>
-            </div>
-          </div>
-
-          {/* Mobile Navigation Menu */}
-          <div className="md:hidden border-t border-gray-200 py-2">
-            <div className="flex flex-wrap gap-2">
-              {navigationItems.map((item) => (
-                item.external ? (
-                  <a
-                    key={item.name}
-                    href={item.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors text-gray-600 hover:text-gray-900 hover:bg-gray-100"
-                  >
-                    <item.icon className="w-4 h-4" />
-                    {item.name}
-                  </a>
-                ) : (
-                  <Link
-                    key={item.name}
-                    to={item.url}
-                    className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                      location.pathname === item.url
-                        ? "bg-blue-100 text-blue-700"
-                        : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
-                    }`}
-                  >
-                    <item.icon className="w-4 h-4" />
-                    {item.name}
-                  </Link>
-                )
-              ))}
-            </div>
+            {/* Mobile Hamburger */}
+            <button
+              className="md:hidden p-2 rounded-lg text-muted-text hover:text-warm-white hover:bg-surface-hover transition-all duration-200"
+              onClick={() => setIsOpen((prev) => !prev)}
+              aria-label="Toggle menu"
+            >
+              {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
           </div>
         </nav>
+
+        {/* Mobile Drawer */}
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              key="mobile-menu"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.22, ease: "easeInOut" }}
+              className="md:hidden overflow-hidden"
+              style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
+            >
+              <div className="px-4 py-3 space-y-1" style={{ backgroundColor: "rgba(10,10,10,0.97)" }}>
+                {navigationItems.map((item) => (
+                  <Link
+                    key={item.name}
+                    to={item.url}
+                    onClick={closeMenu}
+                    className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-mono tracking-wide transition-all duration-200 ${
+                      isActive(item.url)
+                        ? "text-amber bg-amber/8 border border-amber/20"
+                        : "text-muted-text hover:text-warm-white hover:bg-surface-hover"
+                    }`}
+                  >
+                    <item.icon className="w-4 h-4" />
+                    {item.name}
+                  </Link>
+                ))}
+                {/* Resume — external */}
+                <a
+                  href="/resume.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={closeMenu}
+                  className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-mono tracking-wide transition-all duration-200 text-muted-text hover:text-warm-white hover:bg-surface-hover"
+                >
+                  <FileText className="w-4 h-4" />
+                  Resume
+                  <ExternalLink className="w-3.5 h-3.5 ml-auto opacity-60" />
+                </a>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </header>
 
       {/* Main Content */}
-      <main className="pt-16">
-        {children}
-      </main>
+      <main className="pt-16">{children}</main>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="grid md:grid-cols-3 gap-8">
+      <footer
+        className="border-t"
+        style={{ backgroundColor: "#0a0a0a", borderColor: "rgba(255,255,255,0.06)" }}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+          <div className="grid md:grid-cols-3 gap-10">
+            {/* Col 1: Name + bio */}
             <div>
-              <h3 className="text-lg font-semibold mb-4">Michel Herrera</h3>
-              <p className="text-gray-400">
-                Full Stack Developer passionate about building innovative software solutions.
-              </p>
+              <h3 className="font-display text-warm-white text-xl mb-3">{profile.name}</h3>
+              <p className="text-muted-text text-sm leading-relaxed">{profile.tagline}</p>
+              <div className="flex items-center gap-3 mt-5">
+                <a
+                  href={profile.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-text hover:text-amber transition-colors duration-200"
+                  aria-label="GitHub"
+                >
+                  <Github className="w-5 h-5" />
+                </a>
+                <a
+                  href={profile.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-text hover:text-amber transition-colors duration-200"
+                  aria-label="LinkedIn"
+                >
+                  <Linkedin className="w-5 h-5" />
+                </a>
+                <a
+                  href={`mailto:${profile.email}`}
+                  className="text-muted-text hover:text-amber transition-colors duration-200"
+                  aria-label="Email"
+                >
+                  <Mail className="w-5 h-5" />
+                </a>
+              </div>
             </div>
+
+            {/* Col 2: Quick Links */}
             <div>
-              <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
+              <h3 className="font-mono text-xs tracking-widest text-muted-text uppercase mb-4">
+                Quick Links
+              </h3>
               <div className="space-y-2">
-                {navigationItems.slice(0, 4).map((item) => (
+                {navigationItems.map((item) => (
                   <Link
                     key={item.name}
                     to={item.url}
-                    className="block text-gray-400 hover:text-white transition-colors"
+                    className="block text-sm text-muted-text hover:text-amber transition-colors duration-200"
                   >
                     {item.name}
                   </Link>
                 ))}
+                <a
+                  href="/resume.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1 text-sm text-muted-text hover:text-amber transition-colors duration-200"
+                >
+                  Resume <ExternalLink className="w-3 h-3" />
+                </a>
               </div>
             </div>
+
+            {/* Col 3: Contact */}
             <div>
-              <h3 className="text-lg font-semibold mb-4">Contact</h3>
-              <div className="space-y-2 text-gray-400">
-                <p>michelhm22@icloud.com</p>
-                <p>(786) 319-6002</p>
-                <p>Miami, Florida</p>
+              <h3 className="font-mono text-xs tracking-widest text-muted-text uppercase mb-4">
+                Contact
+              </h3>
+              <div className="space-y-3 text-sm text-muted-text">
+                <a
+                  href={`mailto:${profile.email}`}
+                  className="flex items-center gap-2 hover:text-amber transition-colors duration-200"
+                >
+                  <Mail className="w-4 h-4 flex-shrink-0" />
+                  {profile.email}
+                </a>
+                <a
+                  href={profile.phoneTel}
+                  className="flex items-center gap-2 hover:text-amber transition-colors duration-200"
+                >
+                  <MessageSquare className="w-4 h-4 flex-shrink-0" />
+                  {profile.phone}
+                </a>
+                <p className="text-muted-text">{profile.location}</p>
               </div>
             </div>
           </div>
-          <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2025 Michel Herrera. All rights reserved.</p>
+
+          {/* Bottom bar */}
+          <div
+            className="mt-10 pt-8 text-center text-xs text-muted-text font-mono"
+            style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
+          >
+            &copy; 2026 Michel Herrera. Built with React &amp; Tailwind CSS.
           </div>
         </div>
       </footer>

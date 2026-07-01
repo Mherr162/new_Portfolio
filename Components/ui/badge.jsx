@@ -1,24 +1,27 @@
 import React from 'react';
 
-export function Badge({ 
-  children, 
-  className = '', 
+export function Badge({
+  children,
+  className = '',
   variant = 'default',
-  ...props 
+  ...props
 }) {
-  const baseClasses = 'inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2';
-  
+  const baseClasses =
+    'inline-flex items-center rounded-full px-2.5 py-0.5 font-mono text-xs transition-colors focus:outline-none focus:ring-2 focus:ring-amber focus:ring-offset-2';
+
   const variants = {
-    default: 'border-transparent bg-primary text-primary-foreground hover:bg-primary/80',
-    secondary: 'border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80',
-    destructive: 'border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80',
-    outline: 'text-foreground'
+    default: 'bg-amber/12 text-amber border border-amber/20',
+    secondary:
+      'bg-surface-2 text-muted-text border border-[rgba(255,255,255,0.08)]',
+    destructive: 'bg-red-600/12 text-red-400 border border-red-500/20',
+    outline: 'border border-[rgba(255,255,255,0.12)] text-muted-text',
+    emerald: 'bg-emerald-accent/12 text-emerald-accent border border-emerald-accent/20',
   };
-  
+
   const variantClasses = variants[variant] || variants.default;
-  
+
   return (
-    <div 
+    <div
       className={`${baseClasses} ${variantClasses} ${className}`}
       {...props}
     >
