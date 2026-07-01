@@ -23,8 +23,8 @@ export const experience = [
     company: "Miami Therapy Group, LLC",
     role: "Freelance Software Engineer",
     location: "Miami, Florida",
-    period: "Jan 2025 – Present",
-    status: "Current",
+    period: "Jan 2025 – Jan 2026",
+    status: "Completed",
     icon: "Code",
     color: "green",
     technologies: [
