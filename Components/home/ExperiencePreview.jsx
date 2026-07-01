@@ -24,8 +24,9 @@ function useCountUp(target, duration = 1200) {
       setCount(numericTarget);
       return;
     }
-    const isFloat = target.includes(".");
-    const decimals = isFloat ? target.split(".")[1].length : 0;
+    const targetStr = String(target);
+    const isFloat = targetStr.includes(".");
+    const decimals = isFloat ? targetStr.split(".")[1].length : 0;
     const steps = 40;
     const increment = numericTarget / steps;
     let current = 0;
@@ -73,7 +74,7 @@ function StatCard({ stat }) {
 
 export default function ExperiencePreview() {
   return (
-    <section className="py-24 overflow-hidden" style={{ backgroundColor: '#0a0a0a' }}>
+    <section className="py-24 overflow-hidden bg-charcoal">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <motion.div

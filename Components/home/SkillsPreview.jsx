@@ -10,7 +10,7 @@ import { skills } from "../../src/data/portfolio.js";
 
 export default function SkillsPreview() {
   return (
-    <section className="py-24 overflow-hidden" style={{ backgroundColor: '#0a0a0a' }}>
+    <section className="py-24 overflow-hidden bg-charcoal">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <motion.div
