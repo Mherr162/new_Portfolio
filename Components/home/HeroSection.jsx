@@ -1,284 +1,390 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { createPageUrl } from "../../utils";
-import { Button } from "../../Components/ui/button.jsx";
-import { Badge } from "../../Components/ui/badge.jsx";
 import { motion, AnimatePresence } from "framer-motion";
-import { 
-  Download, 
-  ExternalLink, 
-  Github, 
-  Linkedin, 
-  Mail,
-  MapPin,
-  Sparkles,
-  Code2,
-  Zap
-} from "lucide-react";
+import { Github, Linkedin, Mail, Download } from "lucide-react";
+import { profile, stats } from "../../src/data/portfolio.js";
 
-export default function HeroSection() {
-  const [typedText, setTypedText] = useState("");
-  const [currentRole, setCurrentRole] = useState(0);
-  
-  const roles = useMemo(() => [
-    "Product-Focused Full-Stack Engineer",
-    "Frontend-Leaning Full-Stack (React)",
-    "Backend-Leaning Full-Stack (Node)",
-    "Developer Experience (DX) Engineer",
-    "AI Enthusiast"
-  ], []);
+const ROLES = [
+  "Full-Stack Developer",
+  "React & TypeScript Engineer",
+  "Frontend-Leaning Engineer",
+  "Problem Solver",
+];
 
-  // Typing animation effect
+function useCountUp(target, duration = 1000) {
+  const numericTarget = parseFloat(target);
+  const isFloat = String(target).includes(".");
+  const [count, setCount] = useState(0);
+
   useEffect(() => {
-    let timeoutId;
-    let currentIndex = 0;
-    let isDeleting = false;
-
-    const fullText = roles[currentRole];
-
-    const typeWriter = () => {
-      if (isDeleting) {
-        setTypedText(fullText.substring(0, currentIndex - 1));
-        currentIndex--;
+    if (isNaN(numericTarget)) {
+      setCount(numericTarget);
+      return;
+    }
+    const steps = 50;
+    const increment = numericTarget / steps;
+    const interval = duration / steps;
+    let current = 0;
+    const timer = setInterval(() => {
+      current += increment;
+      if (current >= numericTarget) {
+        setCount(numericTarget);
+        clearInterval(timer);
       } else {
-        setTypedText(fullText.substring(0, currentIndex + 1));
-        currentIndex++;
+        setCount(isFloat ? parseFloat(current.toFixed(2)) : Math.floor(current));
       }
+    }, interval);
+    return () => clearInterval(timer);
+  }, [numericTarget, duration, isFloat]);
 
-      if (!isDeleting && currentIndex === fullText.length) {
-        timeoutId = setTimeout(() => {
-          isDeleting = true;
-          typeWriter();
-        }, 2000);
-      } else if (isDeleting && currentIndex === 0) {
-        isDeleting = false;
-        setCurrentRole((prev) => (prev + 1) % roles.length);
-        timeoutId = setTimeout(typeWriter, 500);
-      } else {
-        timeoutId = setTimeout(typeWriter, isDeleting ? 50 : 100);
-      }
-    };
+  return isFloat ? count.toFixed(2) : count;
+}
 
-    timeoutId = setTimeout(typeWriter, 1000);
-
-    return () => {
-      if (timeoutId) {
-        clearTimeout(timeoutId);
-      }
-    };
-  }, [currentRole]);
+function StatCard({ stat }) {
+  const displayValue = useCountUp(stat.value);
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-purple-50 min-h-screen flex items-center">
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0">
-        {/* Floating dots */}
-        {Array.from({ length: 20 }).map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-1 h-1 bg-blue-400 rounded-full opacity-30"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              transform: `translateY(-${Math.random() * 100}px) scale(${1 + Math.random() * 0.5})`,
-              animation: `float ${3 + Math.random() * 2}s ease-in-out infinite`
-            }}
-          />
-        ))}
+    <div
+      className="rounded-xl p-4 border"
+      style={{
+        background: "var(--bg-surface-2)",
+        borderColor: "var(--border)",
+      }}
+    >
+      <div
+        className="font-mono text-2xl font-semibold"
+        style={{ color: "var(--color-accent)" }}
+      >
+        {displayValue}{stat.suffix}
       </div>
+      <div className="text-xs mt-1" style={{ color: "var(--text-muted)" }}>
+        {stat.label}
+      </div>
+      {stat.sub && (
+        <div className="text-xs mt-0.5" style={{ color: "var(--text-subtle)" }}>
+          {stat.sub}
+        </div>
+      )}
+    </div>
+  );
+}
 
-      {/* Gradient orbs */}
-      <div 
-        className="absolute top-20 right-20 w-64 h-64 bg-blue-200 rounded-full blur-3xl opacity-20"
-        style={{ transform: `scale(${1 + Math.random() * 0.1}) rotate(${Math.random() * 360}deg)` }}
+const containerVariants = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.1 },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: "easeOut" } },
+};
+
+export default function HeroSection() {
+  const [roleIndex, setRoleIndex] = useState(0);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setRoleIndex((prev) => (prev + 1) % ROLES.length);
+    }, 2800);
+    return () => clearInterval(id);
+  }, []);
+
+  // Summary: first ~120 chars
+  const summaryShort = profile.summary.length > 120
+    ? profile.summary.slice(0, 120).trimEnd() + "…"
+    : profile.summary;
+
+  return (
+    <section
+      className="relative overflow-hidden min-h-screen flex items-center"
+      style={{ background: "var(--bg-base)" }}
+    >
+      {/* Glow orbs */}
+      <div
+        className="glow-orb"
+        style={{
+          top: "-10%",
+          right: "-8%",
+          width: "480px",
+          height: "480px",
+          background: "rgba(232, 176, 75, 0.18)",
+        }}
       />
-      <div 
-        className="absolute bottom-20 left-20 w-48 h-48 bg-purple-200 rounded-full blur-3xl opacity-20"
-        style={{ transform: `scale(${1 + Math.random() * 0.1}) rotate(${Math.random() * 360}deg)` }}
+      <div
+        className="glow-orb"
+        style={{
+          bottom: "-12%",
+          left: "-8%",
+          width: "400px",
+          height: "400px",
+          background: "rgba(74, 222, 128, 0.12)",
+        }}
       />
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left Column - Text Content */}
-          <motion.div 
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 w-full">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+
+          {/* ── Left column ── */}
+          <motion.div
             className="space-y-8"
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
           >
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              <Badge className="mb-4 bg-green-100 text-green-800 hover:bg-green-200 animate-pulse">
-                <Sparkles className="w-3 h-3 mr-1" />
-                Available for New Opportunities
-              </Badge>
-              
-              <h1 className="text-4xl md:text-6xl font-bold text-gray-900 leading-tight">
-                Michel Herrera
-              </h1>
-              
-              <div className="h-8 md:h-10 mt-2">
-                <h2 className="text-xl md:text-2xl text-blue-600 font-semibold">
-                  {typedText}
-                  <span className="inline-block w-0.5 h-6 md:h-8 bg-blue-600 ml-1 animate-pulse" />
-                </h2>
-              </div>
+            {/* Eyebrow */}
+            <motion.div variants={itemVariants}>
+              <span className="eyebrow">// available for new opportunities</span>
             </motion.div>
 
-            <motion.p 
-              className="text-lg md:text-xl text-gray-600 leading-relaxed"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
+            {/* Name */}
+            <motion.div variants={itemVariants}>
+              <h1
+                className="font-display text-6xl lg:text-8xl font-light leading-none"
+                style={{ color: "var(--text-primary)" }}
+              >
+                Michel<br />Herrera
+              </h1>
+            </motion.div>
+
+            {/* Animated role */}
+            <motion.div variants={itemVariants} className="h-8 overflow-hidden">
+              <AnimatePresence mode="wait">
+                <motion.span
+                  key={roleIndex}
+                  className="block font-mono text-lg"
+                  style={{ color: "var(--color-accent)" }}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.4 }}
+                >
+                  {ROLES[roleIndex]}
+                </motion.span>
+              </AnimatePresence>
+            </motion.div>
+
+            {/* Summary */}
+            <motion.p
+              variants={itemVariants}
+              className="text-base leading-relaxed max-w-lg"
+              style={{ color: "var(--text-muted)" }}
             >
-              Full Stack Developer who made the shift from "being a licensed electrician to building innovative software. I work with React, TypeScript, JavaScript, C#, and Java to create responsive, user-friendly apps.
+              {summaryShort}
             </motion.p>
 
-            <motion.div 
-              className="flex items-center gap-2 text-gray-600"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.6 }}
-            >
-              <MapPin className="w-5 h-5" />
-              <span>Miami, Florida</span>
+            {/* Location */}
+            <motion.div variants={itemVariants}>
+              <span className="font-mono text-sm" style={{ color: "var(--text-muted)" }}>
+                📍 {profile.location}
+              </span>
             </motion.div>
 
-            {/* Stats Cards */}
-            <motion.div 
-              className="grid grid-cols-1 sm:grid-cols-2 gap-4"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.8 }}
+            {/* CTA buttons */}
+            <motion.div
+              variants={itemVariants}
+              className="flex flex-col sm:flex-row gap-3 items-start"
             >
-              <div className="bg-white/70 backdrop-blur-sm rounded-lg p-4 border border-gray-200">
-                <div className="text-2xl font-bold text-gray-900">3.72 GPA</div>
-                <div className="text-sm text-gray-600">Computer Science, FIU</div>
-              </div>
-              <div className="bg-white/70 backdrop-blur-sm rounded-lg p-4 border border-gray-200">
-                <div className="text-2xl font-bold text-gray-900">98%</div>
-                <div className="text-sm text-gray-600">First-time Fix Rate</div>
-              </div>
-            </motion.div>
-
-            {/* Action Buttons */}
-            <motion.div 
-              className="flex flex-col sm:flex-row gap-4"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 1.0 }}
-            >
-              <Link to={createPageUrl("Contact")}>
-                <Button className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 group">
-                  <Mail className="w-5 h-5 mr-2 group-hover:animate-bounce" />
-                  Get In Touch
-                </Button>
+              <Link
+                to="/Contact"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-semibold text-sm transition-opacity hover:opacity-90"
+                style={{
+                  background: "var(--color-accent)",
+                  color: "#0a0a0a",
+                }}
+              >
+                Get In Touch
               </Link>
-              <Button variant="outline" className="w-full sm:w-auto group">
-                <Download className="w-5 h-5 mr-2 group-hover:animate-bounce" />
+              <a
+                href="/resume.pdf"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-semibold text-sm border transition-colors hover:bg-white/5"
+                style={{
+                  borderColor: "var(--border)",
+                  color: "var(--text-primary)",
+                }}
+              >
+                <Download className="w-4 h-4" />
                 Download Resume
-              </Button>
+              </a>
+
+              {/* Social icons */}
+              <div className="flex gap-2 sm:ml-2">
+                <a
+                  href={profile.github}
+                  target="_blank"
+                  rel="noreferrer"
+                  title="GitHub"
+                  className="p-2.5 rounded-lg border transition-colors hover:bg-white/5"
+                  style={{ borderColor: "var(--border)", color: "var(--text-muted)" }}
+                >
+                  <Github className="w-4 h-4" />
+                </a>
+                <a
+                  href={profile.linkedin}
+                  target="_blank"
+                  rel="noreferrer"
+                  title="LinkedIn"
+                  className="p-2.5 rounded-lg border transition-colors hover:bg-white/5"
+                  style={{ borderColor: "var(--border)", color: "var(--text-muted)" }}
+                >
+                  <Linkedin className="w-4 h-4" />
+                </a>
+                <a
+                  href={`mailto:${profile.email}`}
+                  title="Email"
+                  className="p-2.5 rounded-lg border transition-colors hover:bg-white/5"
+                  style={{ borderColor: "var(--border)", color: "var(--text-muted)" }}
+                >
+                  <Mail className="w-4 h-4" />
+                </a>
+              </div>
             </motion.div>
 
-            {/* Social Links */}
-            <motion.div 
-              className="flex gap-4"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 1.2 }}
+            {/* Stats row */}
+            <motion.div
+              variants={itemVariants}
+              className="grid grid-cols-3 gap-3"
             >
-              <a 
-                href="https://github.com/mherr162" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="p-3 bg-white rounded-full shadow-md hover:shadow-lg transition-shadow"
-              >
-                <Github className="w-6 h-6 text-gray-700" />
-              </a>
-              <a 
-                href="https://linkedin.com/in/michelherrera/" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="p-3 bg-white rounded-full shadow-md hover:shadow-lg transition-shadow"
-              >
-                <Linkedin className="w-6 h-6 text-blue-600" />
-              </a>
-              <a 
-                href="mailto:michelhm22@icloud.com" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="p-3 bg-white rounded-full shadow-md hover:shadow-lg transition-shadow"
-              >
-                <Mail className="w-6 h-6 text-green-600" />
-              </a>
+              {stats.map((stat) => (
+                <StatCard key={stat.label} stat={stat} />
+              ))}
             </motion.div>
           </motion.div>
 
-          {/* Right Column - Code Preview */}
-          <motion.div 
+          {/* ── Right column — terminal block ── */}
+          <motion.div
             className="relative"
-            initial={{ opacity: 0, x: 50 }}
+            initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            transition={{ duration: 0.7, delay: 0.3 }}
           >
-            <div className="w-full max-w-md mx-auto">
-              <div className="bg-gray-900 rounded-lg shadow-2xl overflow-hidden">
-                {/* Terminal Header */}
-                <div className="flex items-center gap-2 px-4 py-3 bg-gray-800">
-                  <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-                  <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                  <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                  <div className="ml-auto text-xs text-gray-400">portfolio.tsx</div>
+            {/* Terminal card */}
+            <div
+              className="rounded-2xl overflow-hidden"
+              style={{
+                background: "var(--bg-surface-2)",
+                border: "1px solid rgba(255,255,255,0.06)",
+              }}
+            >
+              {/* Mac-style header */}
+              <div
+                className="flex items-center gap-2 px-4 py-3"
+                style={{ background: "var(--bg-surface)", borderBottom: "1px solid rgba(255,255,255,0.06)" }}
+              >
+                <span className="w-3 h-3 rounded-full inline-block" style={{ background: "#ff5f57" }} />
+                <span className="w-3 h-3 rounded-full inline-block" style={{ background: "#febc2e" }} />
+                <span className="w-3 h-3 rounded-full inline-block" style={{ background: "#28c840" }} />
+                <span
+                  className="ml-auto font-mono text-xs"
+                  style={{ color: "var(--text-subtle)" }}
+                >
+                  portfolio.tsx
+                </span>
+              </div>
+
+              {/* Code content */}
+              <div className="p-6 font-mono text-sm leading-7">
+                <div>
+                  <span style={{ color: "#c678dd" }}>const</span>{" "}
+                  <span style={{ color: "#e5c07b" }}>michel</span>
+                  <span style={{ color: "#abb2bf" }}>: </span>
+                  <span style={{ color: "#e06c75" }}>Developer</span>
+                  <span style={{ color: "#abb2bf" }}> = {"{"}</span>
                 </div>
-                
-                {/* Code Content */}
-                <div className="p-4 text-sm font-mono">
-                  <div className="text-blue-400">const developer = {"{"}</div>
-                  <div className="ml-4 text-white">
-                    name: <span className="text-green-400">"Michel Herrera"</span>,
-                  </div>
-                  <div className="ml-4 text-white">
-                    role: <span className="text-green-400">"Full Stack Developer"</span>,
-                  </div>
-                  <div className="ml-4 text-white">skills: [</div>
-                  <div className="ml-8 text-green-400">"React", "TypeScript", "Java"</div>
-                  <div className="ml-4 text-white">],</div>
-                  <div className="ml-4 text-white">
-                    passion: <span className="text-green-400">"Building innovative software"</span>
-                  </div>
-                  <div className="text-blue-400">;</div>
-                  <div className="mt-4 text-purple-400">
-                    <span className="text-blue-400">export default</span> developer;
-                  </div>
+                <div className="ml-6">
+                  <span style={{ color: "#abb2bf" }}>name: </span>
+                  <span style={{ color: "#98c379" }}>"Michel Herrera"</span>
+                  <span style={{ color: "#abb2bf" }}>,</span>
+                </div>
+                <div className="ml-6">
+                  <span style={{ color: "#abb2bf" }}>role: </span>
+                  <span style={{ color: "#98c379" }}>"Full-Stack Developer"</span>
+                  <span style={{ color: "#abb2bf" }}>,</span>
+                </div>
+                <div className="ml-6">
+                  <span style={{ color: "#abb2bf" }}>skills: [</span>
+                </div>
+                <div className="ml-12">
+                  <span style={{ color: "#e8b04b" }}>"TypeScript"</span>
+                  <span style={{ color: "#abb2bf" }}>, </span>
+                  <span style={{ color: "#e8b04b" }}>"React"</span>
+                  <span style={{ color: "#abb2bf" }}>, </span>
+                  <span style={{ color: "#4ade80" }}>"Java"</span>
+                  <span style={{ color: "#abb2bf" }}>,</span>
+                </div>
+                <div className="ml-12">
+                  <span style={{ color: "#e8b04b" }}>"Node.js"</span>
+                  <span style={{ color: "#abb2bf" }}>, </span>
+                  <span style={{ color: "#4ade80" }}>"Spring Boot"</span>
+                  <span style={{ color: "#abb2bf" }}>,</span>
+                </div>
+                <div className="ml-6">
+                  <span style={{ color: "#abb2bf" }}>],</span>
+                </div>
+                <div className="ml-6">
+                  <span style={{ color: "#abb2bf" }}>location: </span>
+                  <span style={{ color: "#98c379" }}>"Miami, FL"</span>
+                  <span style={{ color: "#abb2bf" }}>,</span>
+                </div>
+                <div className="ml-6">
+                  <span style={{ color: "#abb2bf" }}>available: </span>
+                  <span style={{ color: "#c678dd" }}>true</span>
+                  <span style={{ color: "#abb2bf" }}>,</span>
+                </div>
+                <div>
+                  <span style={{ color: "#abb2bf" }}>{"};"}</span>
+                </div>
+                <div className="mt-4">
+                  <span style={{ color: "#c678dd" }}>export default</span>
+                  <span style={{ color: "#abb2bf" }}> michel;</span>
                 </div>
               </div>
             </div>
 
-            {/* Floating Tech Badges */}
-            <div className="absolute -top-4 -right-4 w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center shadow-lg">
-              <span className="text-white font-bold text-sm">TS</span>
+            {/* Floating tech badges */}
+            <div
+              className="absolute -top-4 -right-3 px-3 py-1.5 rounded-full text-xs font-mono font-semibold shadow-lg animate-float"
+              style={{
+                background: "rgba(232,176,75,0.15)",
+                border: "1px solid rgba(232,176,75,0.35)",
+                color: "#e8b04b",
+                transform: "rotate(3deg)",
+                animationDelay: "0s",
+              }}
+            >
+              TypeScript
             </div>
-            <div className="absolute top-1/2 -left-4 w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center shadow-lg">
-              <span className="text-white font-bold text-xs">JS</span>
+            <div
+              className="absolute top-1/3 -left-5 px-3 py-1.5 rounded-full text-xs font-mono font-semibold shadow-lg animate-float"
+              style={{
+                background: "rgba(74,222,128,0.12)",
+                border: "1px solid rgba(74,222,128,0.3)",
+                color: "#4ade80",
+                transform: "rotate(-4deg)",
+                animationDelay: "1.2s",
+              }}
+            >
+              React
             </div>
-            <div className="absolute -bottom-4 right-8 w-14 h-14 bg-purple-500 rounded-lg flex items-center justify-center shadow-lg">
-              <span className="text-white font-bold text-sm">React</span>
+            <div
+              className="absolute -bottom-3 right-10 px-3 py-1.5 rounded-full text-xs font-mono font-semibold shadow-lg animate-float"
+              style={{
+                background: "rgba(232,176,75,0.1)",
+                border: "1px solid rgba(232,176,75,0.25)",
+                color: "#e8b04b",
+                transform: "rotate(2deg)",
+                animationDelay: "2.1s",
+              }}
+            >
+              Java
             </div>
-            
           </motion.div>
+
         </div>
       </div>
-
-      <style jsx>{`
-        @keyframes float {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-20px); }
-        }
-      `}</style>
     </section>
   );
-
 }
