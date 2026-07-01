@@ -22,10 +22,10 @@ export default function Home() {
           <p className="font-mono text-sm text-amber-400 tracking-widest uppercase mb-4">
             // let's work together
           </p>
-          <h2 className="font-serif text-4xl md:text-5xl font-bold text-text-primary mb-6">
+          <h2 className="font-display text-4xl md:text-5xl font-bold text-warm-white mb-6">
             Let's Build Something
           </h2>
-          <p className="text-lg text-text-muted mb-10 max-w-xl mx-auto">
+          <p className="text-lg text-muted-text mb-10 max-w-xl mx-auto">
             Have an idea or an open role? I'm ready to collaborate and ship something great.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -41,7 +41,7 @@ export default function Home() {
               <Button
                 size="lg"
                 variant="outline"
-                className="border-text-muted text-text-primary hover:bg-surface-2"
+                className="border-text-muted text-warm-white hover:bg-surface-2"
               >
                 View My Work
               </Button>

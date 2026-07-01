@@ -28,7 +28,7 @@ export default function About() {
   const edu = education[0];
 
   return (
-    <div className="min-h-screen py-20 bg-surface-0">
+    <div className="min-h-screen py-20 bg-charcoal">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Header */}
@@ -39,10 +39,10 @@ export default function About() {
           <p className="font-mono text-sm text-amber-400 tracking-widest uppercase mb-4">
             // about me
           </p>
-          <h1 className="font-serif text-5xl md:text-6xl font-bold text-text-primary mb-6">
+          <h1 className="font-display text-5xl md:text-6xl font-bold text-warm-white mb-6">
             About Me
           </h1>
-          <p className="text-lg text-text-muted max-w-2xl mx-auto">
+          <p className="text-lg text-muted-text max-w-2xl mx-auto">
             Electrician turned full-stack developer — precision wired into every line of code.
           </p>
         </motion.div>
@@ -54,8 +54,8 @@ export default function About() {
         >
           {/* Story prose */}
           <div>
-            <h2 className="font-serif text-3xl font-bold text-text-primary mb-6">My Journey</h2>
-            <p className="text-text-secondary leading-relaxed text-base">
+            <h2 className="font-display text-3xl font-bold text-warm-white mb-6">My Journey</h2>
+            <p className="text-muted-text leading-relaxed text-base">
               I started my career as a licensed electrician at Baptist Health in South Miami, where I
               managed critical power infrastructure for over four years. During that time, I discovered
               a passion for technology and software. I enrolled at Florida International University and
@@ -68,18 +68,18 @@ export default function About() {
           {/* Sidebar cards */}
           <div className="space-y-5">
             {/* Education card */}
-            <Card className="bg-surface-1 border-border-subtle">
+            <Card className="bg-surface-1 border-white/[0.06]">
               <CardContent className="p-6">
                 <div className="flex items-center gap-4 mb-3">
                   <div className="p-3 bg-amber-400/10 rounded-lg">
                     <GraduationCap className="w-5 h-5 text-amber-400" />
                   </div>
                   <div>
-                    <h3 className="text-base font-semibold text-text-primary">Education</h3>
-                    <p className="text-sm text-text-muted">{edu.institution}</p>
+                    <h3 className="text-base font-semibold text-warm-white">Education</h3>
+                    <p className="text-sm text-muted-text">{edu.institution}</p>
                   </div>
                 </div>
-                <p className="text-sm text-text-secondary">
+                <p className="text-sm text-muted-text">
                   {edu.degree}<br />
                   GPA: {edu.gpa} &middot; <span className="text-amber-400">{edu.status}</span>
                 </p>
@@ -87,15 +87,15 @@ export default function About() {
             </Card>
 
             {/* Location card */}
-            <Card className="bg-surface-1 border-border-subtle">
+            <Card className="bg-surface-1 border-white/[0.06]">
               <CardContent className="p-6">
                 <div className="flex items-center gap-4">
                   <div className="p-3 bg-amber-400/10 rounded-lg">
                     <MapPin className="w-5 h-5 text-amber-400" />
                   </div>
                   <div>
-                    <h3 className="text-base font-semibold text-text-primary">Location</h3>
-                    <p className="text-sm text-text-muted">{profile.location}</p>
+                    <h3 className="text-base font-semibold text-warm-white">Location</h3>
+                    <p className="text-sm text-muted-text">{profile.location}</p>
                   </div>
                 </div>
               </CardContent>
@@ -109,7 +109,7 @@ export default function About() {
             <p className="font-mono text-sm text-amber-400 tracking-widest uppercase mb-3">
               // skills
             </p>
-            <h2 className="font-serif text-4xl font-bold text-text-primary">
+            <h2 className="font-display text-4xl font-bold text-warm-white">
               Technical Skills
             </h2>
           </div>
@@ -123,10 +123,10 @@ export default function About() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.45, delay: i * 0.1 }}
               >
-                <Card className="bg-surface-1 border-border-subtle h-full">
+                <Card className="bg-surface-1 border-white/[0.06] h-full">
                   <CardContent className="p-6">
                     <div className="flex items-center justify-between mb-3">
-                      <h3 className="font-semibold text-text-primary">{skill.category}</h3>
+                      <h3 className="font-semibold text-warm-white">{skill.category}</h3>
                       <span className="text-xs font-mono text-amber-400">{skill.level}%</span>
                     </div>
 
@@ -147,7 +147,7 @@ export default function About() {
                         <Badge
                           key={item}
                           variant="secondary"
-                          className="text-xs bg-surface-2 text-text-secondary border-0"
+                          className="text-xs bg-surface-2 text-muted-text border-0"
                         >
                           {item}
                         </Badge>
@@ -163,14 +163,14 @@ export default function About() {
         {/* Connect Section */}
         <motion.div {...fadeUpView}>
           <div className="text-center mb-10">
-            <h2 className="font-serif text-4xl font-bold text-text-primary">Let's Connect</h2>
-            <p className="text-text-muted mt-3">Reach out via any of these channels.</p>
+            <h2 className="font-display text-4xl font-bold text-warm-white">Let's Connect</h2>
+            <p className="text-muted-text mt-3">Reach out via any of these channels.</p>
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
               href={`mailto:${profile.email}`}
-              className="flex items-center gap-3 px-6 py-4 bg-surface-1 border border-border-subtle rounded-xl text-text-primary hover:border-amber-400 transition-colors"
+              className="flex items-center gap-3 px-6 py-4 bg-surface-1 border border-white/[0.06] rounded-xl text-warm-white hover:border-amber-400 transition-colors"
             >
               <Mail className="w-5 h-5 text-amber-400 shrink-0" />
               <span className="text-sm font-mono">{profile.email}</span>
@@ -180,7 +180,7 @@ export default function About() {
               href={profile.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-3 px-6 py-4 bg-surface-1 border border-border-subtle rounded-xl text-text-primary hover:border-amber-400 transition-colors"
+              className="flex items-center gap-3 px-6 py-4 bg-surface-1 border border-white/[0.06] rounded-xl text-warm-white hover:border-amber-400 transition-colors"
             >
               <Github className="w-5 h-5 text-amber-400 shrink-0" />
               <span className="text-sm font-mono">{profile.githubHandle}</span>
@@ -190,7 +190,7 @@ export default function About() {
               href={profile.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-3 px-6 py-4 bg-surface-1 border border-border-subtle rounded-xl text-text-primary hover:border-amber-400 transition-colors"
+              className="flex items-center gap-3 px-6 py-4 bg-surface-1 border border-white/[0.06] rounded-xl text-warm-white hover:border-amber-400 transition-colors"
             >
               <Linkedin className="w-5 h-5 text-amber-400 shrink-0" />
               <span className="text-sm font-mono">{profile.linkedinHandle}</span>

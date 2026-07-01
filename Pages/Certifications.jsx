@@ -13,7 +13,7 @@ const fadeUp = (delay = 0) => ({
 
 export default function Certifications() {
   return (
-    <div className="min-h-screen py-20 bg-surface-0">
+    <div className="min-h-screen py-20 bg-charcoal">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Header */}
@@ -21,10 +21,10 @@ export default function Certifications() {
           <p className="font-mono text-sm text-amber-400 tracking-widest uppercase mb-4">
             // credentials
           </p>
-          <h1 className="font-serif text-5xl md:text-6xl font-bold text-text-primary mb-6">
+          <h1 className="font-display text-5xl md:text-6xl font-bold text-warm-white mb-6">
             Certifications
           </h1>
-          <p className="text-lg text-text-muted max-w-2xl mx-auto">
+          <p className="text-lg text-muted-text max-w-2xl mx-auto">
             Formal credentials and continuous learning that sharpen my technical edge.
           </p>
         </motion.div>
@@ -39,7 +39,7 @@ export default function Certifications() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.1 + index * 0.08 }}
               >
-                <Card className="bg-surface-1 border-border-subtle hover:border-amber-400/40 transition-colors h-full group">
+                <Card className="bg-surface-1 border-white/[0.06] hover:border-amber-400/40 transition-colors h-full group">
                   <CardContent className="p-6 flex flex-col h-full">
                     {/* Icon + Active badge row */}
                     <div className="flex items-start justify-between mb-4">
@@ -52,7 +52,7 @@ export default function Certifications() {
                     </div>
 
                     {/* Name */}
-                    <h3 className="font-serif text-lg font-bold text-text-primary mb-1 group-hover:text-amber-400 transition-colors">
+                    <h3 className="font-display text-lg font-bold text-warm-white mb-1 group-hover:text-amber-400 transition-colors">
                       {cert.name}
                     </h3>
 
@@ -60,7 +60,7 @@ export default function Certifications() {
                     <p className="text-xs font-mono text-amber-400/70 mb-3">{cert.issuer}</p>
 
                     {/* Description */}
-                    <p className="text-sm text-text-secondary leading-relaxed flex-1">
+                    <p className="text-sm text-muted-text leading-relaxed flex-1">
                       {cert.description}
                     </p>
                   </CardContent>
@@ -76,7 +76,7 @@ export default function Certifications() {
             <p className="font-mono text-sm text-amber-400 tracking-widest uppercase mb-3">
               // proficiency
             </p>
-            <h2 className="font-serif text-4xl font-bold text-text-primary">
+            <h2 className="font-display text-4xl font-bold text-warm-white">
               Skill Levels
             </h2>
           </div>
@@ -90,10 +90,10 @@ export default function Certifications() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.45, delay: i * 0.1 }}
               >
-                <Card className="bg-surface-1 border-border-subtle h-full">
+                <Card className="bg-surface-1 border-white/[0.06] h-full">
                   <CardContent className="p-6">
                     <div className="flex items-center justify-between mb-3">
-                      <h3 className="font-semibold text-text-primary">{skill.category}</h3>
+                      <h3 className="font-semibold text-warm-white">{skill.category}</h3>
                       <span className="text-xs font-mono text-amber-400">{skill.level}%</span>
                     </div>
 
@@ -114,7 +114,7 @@ export default function Certifications() {
                         <Badge
                           key={item}
                           variant="secondary"
-                          className="text-xs bg-surface-2 text-text-secondary border-0"
+                          className="text-xs bg-surface-2 text-muted-text border-0"
                         >
                           {item}
                         </Badge>
@@ -134,11 +134,11 @@ export default function Certifications() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <div className="bg-surface-1 border border-border-subtle rounded-2xl p-10 text-center">
-            <h3 className="font-serif text-3xl font-bold text-text-primary mb-4">
+          <div className="bg-surface-1 border border-white/[0.06] rounded-2xl p-10 text-center">
+            <h3 className="font-display text-3xl font-bold text-warm-white mb-4">
               Continuous Learning
             </h3>
-            <p className="text-text-secondary mb-8 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-muted-text mb-8 max-w-2xl mx-auto leading-relaxed">
               Technology evolves fast — and so do I. I combine formal certifications with
               hands-on projects and real-world problem solving to stay sharp and keep
               delivering quality software.
@@ -146,14 +146,14 @@ export default function Certifications() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
                 href="mailto:michelhm22@icloud.com"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-amber-400 text-surface-0 font-semibold rounded-lg hover:bg-amber-300 transition-colors"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-amber-400 text-charcoal font-semibold rounded-lg hover:bg-amber-300 transition-colors"
               >
                 <CheckCircle className="w-5 h-5" />
                 Discuss Learning Goals
               </a>
               <a
                 href="/Projects"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-surface-2 text-text-primary border border-border-subtle rounded-lg hover:border-amber-400/60 transition-colors"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-surface-2 text-warm-white border border-white/[0.06] rounded-lg hover:border-amber-400/60 transition-colors"
               >
                 <Code className="w-5 h-5" />
                 See Applied Skills

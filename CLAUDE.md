@@ -27,7 +27,7 @@ React 18 SPA built with Vite. Routing via React Router v6. Animations via Framer
 - `Entities/` — JSON schema definitions (currently only `Project.json` describing project data shape)
 - `public/` — static assets served directly (images, `resume.pdf`)
 
-**Data pattern:** Page-level data (experience entries, skills, education) is hardcoded as `const` arrays at the top of each Page component. There is no backend or data-fetching layer.
+**Data pattern:** All portfolio data (profile, experience, education, skills, projects, certifications, stats) lives in `src/data/portfolio.js` as a single source of truth. Pages and home section components import from this file. There is no backend or data-fetching layer.
 
 **Path alias:** `@` resolves to the project root (configured in `vite.config.js`).
 

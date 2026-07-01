@@ -89,7 +89,7 @@ export default function Contacts() {
     "border border-[rgba(255,255,255,0.08)] focus:border-amber-400/40 focus:outline-none focus:ring-0 transition-colors";
 
   return (
-    <div className="min-h-screen py-20 bg-surface-0">
+    <div className="min-h-screen py-20 bg-charcoal">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Header */}
@@ -97,10 +97,10 @@ export default function Contacts() {
           <p className="font-mono text-sm text-amber-400 tracking-widest uppercase mb-4">
             // get in touch
           </p>
-          <h1 className="font-serif text-5xl md:text-6xl font-bold text-text-primary mb-6">
+          <h1 className="font-display text-5xl md:text-6xl font-bold text-warm-white mb-6">
             Contact
           </h1>
-          <p className="text-lg text-text-muted max-w-2xl mx-auto">
+          <p className="text-lg text-muted-text max-w-2xl mx-auto">
             Always open to new opportunities, collaborations, or a conversation
             about technology and code.
           </p>
@@ -113,7 +113,7 @@ export default function Contacts() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <h2 className="font-serif text-2xl font-bold text-text-primary mb-6">
+            <h2 className="font-display text-2xl font-bold text-warm-white mb-6">
               Contact Information
             </h2>
 
@@ -125,23 +125,23 @@ export default function Contacts() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
                 >
-                  <Card className="bg-surface-1 border-border-subtle hover:border-amber-400/30 transition-colors">
+                  <Card className="bg-surface-1 border-white/[0.06] hover:border-amber-400/30 transition-colors">
                     <CardContent className="p-5">
                       <div className="flex items-center gap-4">
                         <div className="p-3 bg-amber-400/10 rounded-lg shrink-0">
                           <info.icon className="w-5 h-5 text-amber-400" />
                         </div>
                         <div>
-                          <p className="text-xs font-mono text-text-muted mb-0.5">{info.title}</p>
+                          <p className="text-xs font-mono text-muted-text mb-0.5">{info.title}</p>
                           {info.link ? (
                             <a
                               href={info.link}
-                              className="text-sm text-text-primary hover:text-amber-400 transition-colors"
+                              className="text-sm text-warm-white hover:text-amber-400 transition-colors"
                             >
                               {info.value}
                             </a>
                           ) : (
-                            <span className="text-sm text-text-primary">{info.value}</span>
+                            <span className="text-sm text-warm-white">{info.value}</span>
                           )}
                         </div>
                       </div>
@@ -164,7 +164,7 @@ export default function Contacts() {
                     target={social.url.startsWith("mailto") ? "_self" : "_blank"}
                     rel="noopener noreferrer"
                     aria-label={social.title}
-                    className="p-3 bg-surface-1 border border-border-subtle rounded-lg text-text-secondary hover:text-amber-400 hover:border-amber-400/40 transition-colors"
+                    className="p-3 bg-surface-1 border border-white/[0.06] rounded-lg text-muted-text hover:text-amber-400 hover:border-amber-400/40 transition-colors"
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.4, delay: 0.6 + index * 0.1 }}
@@ -184,9 +184,9 @@ export default function Contacts() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            <Card className="bg-surface-1 border-border-subtle">
+            <Card className="bg-surface-1 border-white/[0.06]">
               <CardHeader className="pb-2">
-                <CardTitle className="font-serif text-xl text-text-primary">
+                <CardTitle className="font-display text-xl text-warm-white">
                   Send a Message
                 </CardTitle>
               </CardHeader>
@@ -209,7 +209,7 @@ export default function Contacts() {
                     <div>
                       <label
                         htmlFor="name"
-                        className="block text-xs font-mono text-text-muted mb-1.5"
+                        className="block text-xs font-mono text-muted-text mb-1.5"
                       >
                         Name
                       </label>
@@ -228,7 +228,7 @@ export default function Contacts() {
                     <div>
                       <label
                         htmlFor="email"
-                        className="block text-xs font-mono text-text-muted mb-1.5"
+                        className="block text-xs font-mono text-muted-text mb-1.5"
                       >
                         Email
                       </label>
@@ -249,7 +249,7 @@ export default function Contacts() {
                   <div>
                     <label
                       htmlFor="subject"
-                      className="block text-xs font-mono text-text-muted mb-1.5"
+                      className="block text-xs font-mono text-muted-text mb-1.5"
                     >
                       Subject
                     </label>
@@ -269,7 +269,7 @@ export default function Contacts() {
                   <div>
                     <label
                       htmlFor="message"
-                      className="block text-xs font-mono text-text-muted mb-1.5"
+                      className="block text-xs font-mono text-muted-text mb-1.5"
                     >
                       Message
                     </label>
@@ -288,7 +288,7 @@ export default function Contacts() {
 
                   <button
                     type="submit"
-                    className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 bg-amber-400 text-surface-0 font-semibold rounded-lg hover:bg-amber-300 transition-colors"
+                    className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 bg-amber-400 text-charcoal font-semibold rounded-lg hover:bg-amber-300 transition-colors"
                   >
                     <Send className="w-4 h-4" />
                     Send Message

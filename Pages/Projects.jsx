@@ -19,7 +19,7 @@ function ProjectCard({ project, index }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: index * 0.12 }}
     >
-      <Card className="bg-surface-1 border-border-subtle hover:border-amber-400 transition-colors duration-300 h-full overflow-hidden group">
+      <Card className="bg-surface-1 border-white/[0.06] hover:border-amber-400 transition-colors duration-300 h-full overflow-hidden group">
         {/* Image */}
         <div className="relative overflow-hidden">
           <img
@@ -34,12 +34,12 @@ function ProjectCard({ project, index }) {
 
         <CardContent className="p-6 flex flex-col gap-4">
           {/* Title */}
-          <h3 className="font-serif text-xl font-semibold text-text-primary group-hover:text-amber-400 transition-colors duration-300">
+          <h3 className="font-display text-xl font-semibold text-warm-white group-hover:text-amber-400 transition-colors duration-300">
             {project.title}
           </h3>
 
           {/* Description */}
-          <p className="text-sm text-text-secondary leading-relaxed flex-1">
+          <p className="text-sm text-muted-text leading-relaxed flex-1">
             {project.longDescription || project.shortDescription}
           </p>
 
@@ -49,7 +49,7 @@ function ProjectCard({ project, index }) {
               <Badge
                 key={tech}
                 variant="secondary"
-                className="text-xs bg-surface-2 text-text-secondary border-0"
+                className="text-xs bg-surface-2 text-muted-text border-0"
               >
                 {tech}
               </Badge>
@@ -72,7 +72,7 @@ function ProjectCard({ project, index }) {
                 href={project.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-4 py-2 bg-surface-2 text-text-primary text-sm font-semibold rounded-lg border border-border-subtle hover:border-amber-400 transition-colors"
+                className="flex items-center gap-2 px-4 py-2 bg-surface-2 text-warm-white text-sm font-semibold rounded-lg border border-white/[0.06] hover:border-amber-400 transition-colors"
               >
                 <Github className="w-4 h-4" />
                 GitHub
@@ -98,7 +98,7 @@ export default function Projects() {
           <p className="font-mono text-sm text-amber-400 tracking-widest uppercase mb-4">
             // my work
           </p>
-          <h1 className="font-serif text-5xl md:text-6xl font-bold text-text-primary mb-6">
+          <h1 className="font-display text-5xl md:text-6xl font-bold text-warm-white mb-6">
             Projects
           </h1>
         </motion.div>
@@ -106,7 +106,7 @@ export default function Projects() {
         {/* Featured Projects */}
         <motion.div className="mb-20" {...fadeUp(0.15)}>
           <div className="mb-8">
-            <h2 className="font-serif text-3xl font-bold text-text-primary">Featured</h2>
+            <h2 className="font-display text-3xl font-bold text-warm-white">Featured</h2>
           </div>
           <div className="grid lg:grid-cols-2 gap-8">
             {featured.map((project, i) => (
@@ -119,7 +119,7 @@ export default function Projects() {
         {volunteering.length > 0 && (
           <motion.div className="mb-20" {...fadeUp(0.3)}>
             <div className="mb-8">
-              <h2 className="font-serif text-3xl font-bold text-text-primary">Volunteering</h2>
+              <h2 className="font-display text-3xl font-bold text-warm-white">Volunteering</h2>
             </div>
             <div className="grid lg:grid-cols-2 gap-8">
               {volunteering.map((project, i) => (
@@ -131,13 +131,13 @@ export default function Projects() {
 
         {/* CTA */}
         <motion.div
-          className="text-center py-16 border-t border-border-subtle"
+          className="text-center py-16 border-t border-white/[0.06]"
           {...fadeUp(0.45)}
         >
-          <h2 className="font-serif text-3xl md:text-4xl font-bold text-text-primary mb-4">
+          <h2 className="font-display text-3xl md:text-4xl font-bold text-warm-white mb-4">
             Interested in working together?
           </h2>
-          <p className="text-text-muted mb-8 max-w-xl mx-auto">
+          <p className="text-muted-text mb-8 max-w-xl mx-auto">
             I'm always open to new projects and collaborations. Let's build something great.
           </p>
           <Link

@@ -52,6 +52,9 @@ export default {
           DEFAULT: '#e8b04b',
           dim: 'rgba(232,176,75,0.12)',
           glow: 'rgba(232,176,75,0.25)',
+          300: '#f0c06b',
+          400: '#e8b04b',
+          500: '#d4963a',
         },
         'emerald-accent': {
           DEFAULT: '#4ade80',

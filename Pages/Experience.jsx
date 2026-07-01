@@ -23,7 +23,7 @@ export default function Experience() {
           <p className="font-mono text-sm text-amber-400 tracking-widest uppercase mb-4">
             // work history
           </p>
-          <h1 className="font-serif text-5xl md:text-6xl font-bold text-text-primary mb-6">
+          <h1 className="font-display text-5xl md:text-6xl font-bold text-warm-white mb-6">
             Experience
           </h1>
         </motion.div>
@@ -38,12 +38,12 @@ export default function Experience() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 + index * 0.15 }}
               >
-                <Card className={`bg-surface-1 border-border-subtle border-l-4 border-l-${exp.color}-500`}>
+                <Card className={`bg-surface-1 border-white/[0.06] border-l-4 border-l-${exp.color}-500`}>
                   <CardContent className="p-6">
                     {/* Top row: company / role / badges */}
                     <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-4">
                       <div>
-                        <h3 className="font-serif text-2xl font-semibold text-text-primary mb-1">
+                        <h3 className="font-display text-2xl font-semibold text-warm-white mb-1">
                           {exp.company}
                         </h3>
                         <p className="text-base text-amber-400 font-medium">{exp.role}</p>
@@ -62,7 +62,7 @@ export default function Experience() {
                     </div>
 
                     {/* Meta: location + period */}
-                    <div className="flex flex-wrap items-center gap-4 text-sm text-text-muted mb-5">
+                    <div className="flex flex-wrap items-center gap-4 text-sm text-muted-text mb-5">
                       <span className="flex items-center gap-1">
                         <MapPin className="w-3.5 h-3.5" />
                         {exp.location}
@@ -76,7 +76,7 @@ export default function Experience() {
                     {/* Achievements */}
                     <ul className="space-y-2 mb-5">
                       {exp.achievements.map((item, i) => (
-                        <li key={i} className="flex items-start gap-2 text-sm text-text-secondary">
+                        <li key={i} className="flex items-start gap-2 text-sm text-muted-text">
                           <span className={`mt-1.5 w-1.5 h-1.5 rounded-full bg-${exp.color}-500 shrink-0`} />
                           {item}
                         </li>
@@ -89,7 +89,7 @@ export default function Experience() {
                         <Badge
                           key={tech}
                           variant="secondary"
-                          className="text-xs bg-surface-2 text-text-secondary border-0"
+                          className="text-xs bg-surface-2 text-muted-text border-0"
                         >
                           {tech}
                         </Badge>
@@ -108,14 +108,14 @@ export default function Experience() {
             <p className="font-mono text-sm text-amber-400 tracking-widest uppercase mb-3">
               // education
             </p>
-            <h2 className="font-serif text-3xl font-bold text-text-primary">Education</h2>
+            <h2 className="font-display text-3xl font-bold text-warm-white">Education</h2>
           </div>
 
-          <Card className="bg-surface-1 border-border-subtle border-l-4 border-l-purple-500">
+          <Card className="bg-surface-1 border-white/[0.06] border-l-4 border-l-purple-500">
             <CardContent className="p-6">
               <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-4">
                 <div>
-                  <h3 className="font-serif text-2xl font-semibold text-text-primary mb-1">
+                  <h3 className="font-display text-2xl font-semibold text-warm-white mb-1">
                     {edu.degree}
                   </h3>
                   <p className="text-base text-amber-400 font-medium">{edu.institution}</p>
@@ -125,7 +125,7 @@ export default function Experience() {
                 </Badge>
               </div>
 
-              <div className="flex flex-wrap items-center gap-4 text-sm text-text-muted">
+              <div className="flex flex-wrap items-center gap-4 text-sm text-muted-text">
                 <span className="flex items-center gap-1">
                   <MapPin className="w-3.5 h-3.5" />
                   {edu.location}
@@ -146,7 +146,7 @@ export default function Experience() {
             <p className="font-mono text-sm text-amber-400 tracking-widest uppercase mb-3">
               // skills
             </p>
-            <h2 className="font-serif text-3xl font-bold text-text-primary">Technical Skills</h2>
+            <h2 className="font-display text-3xl font-bold text-warm-white">Technical Skills</h2>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
@@ -158,10 +158,10 @@ export default function Experience() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.45, delay: i * 0.1 }}
               >
-                <Card className="bg-surface-1 border-border-subtle h-full">
+                <Card className="bg-surface-1 border-white/[0.06] h-full">
                   <CardContent className="p-6">
                     <div className="flex items-center justify-between mb-3">
-                      <h3 className="font-semibold text-text-primary">{skill.category}</h3>
+                      <h3 className="font-semibold text-warm-white">{skill.category}</h3>
                       <span className="text-xs font-mono text-amber-400">{skill.level}%</span>
                     </div>
 
@@ -182,7 +182,7 @@ export default function Experience() {
                         <Badge
                           key={item}
                           variant="secondary"
-                          className="text-xs bg-surface-2 text-text-secondary border-0"
+                          className="text-xs bg-surface-2 text-muted-text border-0"
                         >
                           {item}
                         </Badge>
