@@ -2,10 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "../utils";
 import { Button } from "../Components/ui/button.jsx";
-import { 
-  Code, 
-  Mail
-} from "lucide-react";
 
 import HeroSection from "../Components/home/HeroSection.jsx";
 import SkillsPreview from "../Components/home/SkillsPreview.jsx";
@@ -19,26 +15,34 @@ export default function Home() {
       <SkillsPreview />
       <ProjectsPreview />
       <ExperiencePreview />
-      
+
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-blue-600 to-purple-700 text-white">
+      <section className="py-24 bg-surface-1">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            Let's Build Something Amazing Together
+          <p className="font-mono text-sm text-amber-400 tracking-widest uppercase mb-4">
+            // let's work together
+          </p>
+          <h2 className="font-serif text-4xl md:text-5xl font-bold text-text-primary mb-6">
+            Let's Build Something
           </h2>
-          <p className="text-xl mb-8 text-blue-100">
-            Ready to collaborate on your next project? Let's discuss how I can help bring your ideas to life.
+          <p className="text-lg text-text-muted mb-10 max-w-xl mx-auto">
+            Have an idea or an open role? I'm ready to collaborate and ship something great.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to={createPageUrl("Contact")}>
-              <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100">
-                <Mail className="w-5 h-5 mr-2" />
+            <Link to="/Contact">
+              <Button
+                size="lg"
+                className="bg-amber-400 text-gray-900 hover:bg-amber-300 font-semibold"
+              >
                 Get In Touch
               </Button>
             </Link>
-            <Link to={createPageUrl("Projects")}>
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-blue-600">
-                <Code className="w-5 h-5 mr-2" />
+            <Link to="/Projects">
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-text-muted text-text-primary hover:bg-surface-2"
+              >
                 View My Work
               </Button>
             </Link>

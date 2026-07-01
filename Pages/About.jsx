@@ -1,219 +1,203 @@
 import React from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "../Components/ui/card.jsx";
-import { Badge } from "../Components/ui/badge.jsx";
 import { motion } from "framer-motion";
-import { 
-  Code, 
-  Server, 
-  Database, 
-  Zap,
-  Award,
+import { Card, CardContent } from "../Components/ui/card.jsx";
+import { Badge } from "../Components/ui/badge.jsx";
+import {
   GraduationCap,
   MapPin,
   Mail,
   Github,
-  Linkedin
+  Linkedin,
 } from "lucide-react";
+import { profile, skills, education } from "../src/data/portfolio.js";
 
-const skills = [
-  { category: "Frontend", technologies: ["React", "TypeScript", "JavaScript", "HTML", "CSS", "Tailwind CSS", "Vite"] },
-  { category: "Backend", technologies: ["Java", "Spring Boot", "C#", "Python", "Node.js", "Express"] },
-  { category: "Database", technologies: ["MySQL", "JDBC", "Wix Data", "Database Design", "SQL"] },
-  { category: "Tools", technologies: ["Git", "Postman", "AWS", "Vercel", "Framer Motion", "Lucide Icons"] }
-];
+const fadeUp = (delay = 0) => ({
+  initial: { opacity: 0, y: 30 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.6, delay },
+});
 
-const certifications = [
-  { name: "AWS Certified Cloud Practitioner", issuer: "Amazon Web Services", year: "2024" },
-  { name: "Java Programming Certificate", issuer: "FIU", year: "2023" },
-  { name: "Electrical License", issuer: "State of Florida", year: "2020" }
-];
+const fadeUpView = {
+  initial: { opacity: 0, y: 24 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true },
+  transition: { duration: 0.5 },
+};
 
 export default function About() {
+  const edu = education[0];
+
   return (
-    <div className="min-h-screen py-20">
+    <div className="min-h-screen py-20 bg-surface-0">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header Section */}
-        <motion.div 
+
+        {/* Header */}
+        <motion.div
           className="text-center mb-16"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          {...fadeUp(0)}
         >
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+          <p className="font-mono text-sm text-amber-400 tracking-widest uppercase mb-4">
+            // about me
+          </p>
+          <h1 className="font-serif text-5xl md:text-6xl font-bold text-text-primary mb-6">
             About Me
           </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            A passionate Full Stack Developer with a unique background in electrical engineering, 
-            bringing systematic problem-solving and attention to detail to software development.
+          <p className="text-lg text-text-muted max-w-2xl mx-auto">
+            Electrician turned full-stack developer — precision wired into every line of code.
           </p>
         </motion.div>
 
-        {/* Story Section */}
-        <motion.div 
-          className="grid lg:grid-cols-2 gap-12 mb-16"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+        {/* Journey Section */}
+        <motion.div
+          className="grid lg:grid-cols-2 gap-12 mb-20"
+          {...fadeUp(0.15)}
         >
+          {/* Story prose */}
           <div>
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">My Journey</h2>
-            <div className="space-y-4 text-gray-600 leading-relaxed">
-              <p>
-                My journey into software development began with a background in electrical engineering. 
-                As a licensed electrician working at Baptist Health, I developed strong problem-solving 
-                skills and attention to detail that now translate perfectly to software development.
-              </p>
-              <p>
-                The transition from "electrical systems to software systems felt natural - both require 
-                systematic thinking, debugging skills, and the ability to work with complex systems. 
-                I bring the same precision and reliability from "electrical work to my code.
-              </p>
-              <p>
-                Currently pursuing a Computer Science degree at FIU with a 3.72 GPA, I'm combining 
-                formal education with hands-on experience to become a well-rounded developer.
-              </p>
-            </div>
+            <h2 className="font-serif text-3xl font-bold text-text-primary mb-6">My Journey</h2>
+            <p className="text-text-secondary leading-relaxed text-base">
+              I started my career as a licensed electrician at Baptist Health in South Miami, where I
+              managed critical power infrastructure for over four years. During that time, I discovered
+              a passion for technology and software. I enrolled at Florida International University and
+              pivoted — earning a 3.72 GPA in Computer Science while continuing to work full-time.
+              Today I build full-stack applications with React, TypeScript, and Java, combining the
+              same attention to precision and reliability I learned in the field.
+            </p>
           </div>
-          
-          <div className="space-y-6">
-            <Card>
+
+          {/* Sidebar cards */}
+          <div className="space-y-5">
+            {/* Education card */}
+            <Card className="bg-surface-1 border-border-subtle">
               <CardContent className="p-6">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="p-3 bg-blue-100 rounded-lg">
-                    <GraduationCap className="w-6 h-6 text-blue-600" />
+                <div className="flex items-center gap-4 mb-3">
+                  <div className="p-3 bg-amber-400/10 rounded-lg">
+                    <GraduationCap className="w-5 h-5 text-amber-400" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold">Education</h3>
-                    <p className="text-gray-600">Florida International University</p>
+                    <h3 className="text-base font-semibold text-text-primary">Education</h3>
+                    <p className="text-sm text-text-muted">{edu.institution}</p>
                   </div>
                 </div>
-                <p className="text-sm text-gray-600">
-                  Bachelor of Science in Computer Science<br/>
-                  Current GPA: 3.72
+                <p className="text-sm text-text-secondary">
+                  {edu.degree}<br />
+                  GPA: {edu.gpa} &middot; <span className="text-amber-400">{edu.status}</span>
                 </p>
               </CardContent>
             </Card>
 
-            <Card>
+            {/* Location card */}
+            <Card className="bg-surface-1 border-border-subtle">
               <CardContent className="p-6">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="p-3 bg-green-100 rounded-lg">
-                    <MapPin className="w-6 h-6 text-green-600" />
+                <div className="flex items-center gap-4">
+                  <div className="p-3 bg-amber-400/10 rounded-lg">
+                    <MapPin className="w-5 h-5 text-amber-400" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold">Location</h3>
-                    <p className="text-gray-600">Miami, Florida</p>
+                    <h3 className="text-base font-semibold text-text-primary">Location</h3>
+                    <p className="text-sm text-text-muted">{profile.location}</p>
                   </div>
                 </div>
-                <p className="text-sm text-gray-600">
-                  Available for remote work and local opportunities
-                </p>
               </CardContent>
             </Card>
           </div>
         </motion.div>
 
         {/* Skills Section */}
-        <motion.div 
-          className="mb-16"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-        >
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Technical Skills</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {skills.map((skill, index) => (
-              <Card key={skill.category} className="hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    {skill.category === "Frontend" && <Code className="w-5 h-5 text-blue-600" />}
-                    {skill.category === "Backend" && <Server className="w-5 h-5 text-green-600" />}
-                    {skill.category === "Database" && <Database className="w-5 h-5 text-purple-600" />}
-                    {skill.category === "Tools" && <Zap className="w-5 h-5 text-orange-600" />}
-                    {skill.category}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex flex-wrap gap-2">
-                    {skill.technologies.map((tech) => (
-                      <Badge key={tech} variant="outline" className="text-xs">
-                        {tech}
-                      </Badge>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
+        <motion.div className="mb-20" {...fadeUp(0.3)}>
+          <div className="text-center mb-10">
+            <p className="font-mono text-sm text-amber-400 tracking-widest uppercase mb-3">
+              // skills
+            </p>
+            <h2 className="font-serif text-4xl font-bold text-text-primary">
+              Technical Skills
+            </h2>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            {skills.map((skill, i) => (
+              <motion.div
+                key={skill.category}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.45, delay: i * 0.1 }}
+              >
+                <Card className="bg-surface-1 border-border-subtle h-full">
+                  <CardContent className="p-6">
+                    <div className="flex items-center justify-between mb-3">
+                      <h3 className="font-semibold text-text-primary">{skill.category}</h3>
+                      <span className="text-xs font-mono text-amber-400">{skill.level}%</span>
+                    </div>
+
+                    {/* Animated progress bar */}
+                    <div className="h-1.5 bg-surface-2 rounded-full mb-4 overflow-hidden">
+                      <motion.div
+                        className="h-full bg-amber-400 rounded-full"
+                        initial={{ width: 0 }}
+                        whileInView={{ width: `${skill.level}%` }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8, delay: 0.1 + i * 0.1, ease: "easeOut" }}
+                      />
+                    </div>
+
+                    {/* Tech pills */}
+                    <div className="flex flex-wrap gap-2">
+                      {skill.items.map((item) => (
+                        <Badge
+                          key={item}
+                          variant="secondary"
+                          className="text-xs bg-surface-2 text-text-secondary border-0"
+                        >
+                          {item}
+                        </Badge>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
             ))}
           </div>
         </motion.div>
 
-        {/* Certifications Section */}
-        <motion.div 
-          className="mb-16"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-        >
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Certifications</h2>
-          <div className="grid md:grid-cols-3 gap-6">
-            {certifications.map((cert, index) => (
-              <Card key={cert.name} className="hover:shadow-lg transition-shadow">
-                <CardContent className="p-6">
-                  <div className="flex items-start gap-4">
-                    <div className="p-3 bg-yellow-100 rounded-lg">
-                      <Award className="w-6 h-6 text-yellow-600" />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-gray-900 mb-1">{cert.name}</h3>
-                      <p className="text-sm text-gray-600 mb-2">{cert.issuer}</p>
-                      <Badge variant="outline" className="text-xs">{cert.year}</Badge>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+        {/* Connect Section */}
+        <motion.div {...fadeUpView}>
+          <div className="text-center mb-10">
+            <h2 className="font-serif text-4xl font-bold text-text-primary">Let's Connect</h2>
+            <p className="text-text-muted mt-3">Reach out via any of these channels.</p>
           </div>
-        </motion.div>
 
-        {/* Contact Section */}
-        <motion.div 
-          className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-8 text-center"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
-        >
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Let's Connect</h2>
-          <p className="text-gray-600 mb-6">
-            I'm always interested in discussing new opportunities and interesting projects.
-          </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a 
-              href="mailto:michelhm22@icloud.com"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            <a
+              href={`mailto:${profile.email}`}
+              className="flex items-center gap-3 px-6 py-4 bg-surface-1 border border-border-subtle rounded-xl text-text-primary hover:border-amber-400 transition-colors"
             >
-              <Mail className="w-5 h-5" />
-              michelhm22@icloud.com
+              <Mail className="w-5 h-5 text-amber-400 shrink-0" />
+              <span className="text-sm font-mono">{profile.email}</span>
             </a>
-            <a 
-              href="https://github.com/mherr162"
+
+            <a
+              href={profile.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-gray-800 text-white rounded-lg hover:bg-gray-900 transition-colors"
+              className="flex items-center gap-3 px-6 py-4 bg-surface-1 border border-border-subtle rounded-xl text-text-primary hover:border-amber-400 transition-colors"
             >
-              <Github className="w-5 h-5" />
-              GitHub
+              <Github className="w-5 h-5 text-amber-400 shrink-0" />
+              <span className="text-sm font-mono">{profile.githubHandle}</span>
             </a>
-            <a 
-              href="https://linkedin.com/in/michelherrera/"
+
+            <a
+              href={profile.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-blue-700 text-white rounded-lg hover:bg-blue-800 transition-colors"
+              className="flex items-center gap-3 px-6 py-4 bg-surface-1 border border-border-subtle rounded-xl text-text-primary hover:border-amber-400 transition-colors"
             >
-              <Linkedin className="w-5 h-5" />
-              LinkedIn
+              <Linkedin className="w-5 h-5 text-amber-400 shrink-0" />
+              <span className="text-sm font-mono">{profile.linkedinHandle}</span>
             </a>
           </div>
         </motion.div>
+
       </div>
     </div>
   );
