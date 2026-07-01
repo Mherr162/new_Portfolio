@@ -1,197 +1,68 @@
 import React from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "../Components/ui/card.jsx";
+import { Card, CardContent } from "../Components/ui/card.jsx";
 import { Badge } from "../Components/ui/badge.jsx";
 import { motion } from "framer-motion";
-import { 
-  Award, 
-  Calendar, 
-  ExternalLink,
-  CheckCircle,
-  BookOpen,
-  Code
-} from "lucide-react";
+import { CheckCircle, Code } from "lucide-react";
+import { certifications, skills } from "../src/data/portfolio.js";
 
-const certifications = [
-  {
-    name: "Technical Interview Prep: CodePath",
-    issuer: "CodePath",
-    year: "",
-    status: "Completed",
-    description: "Structured preparation for technical coding interviews with data structures and algorithms.",
-    skills: ["Data Structures", "Algorithms", "Problem Solving"],
-    verificationUrl: "#",
-    icon: "🧠"
-  },
-  {
-    name: "Python Developer: SoloLearn",
-    issuer: "SoloLearn",
-    year: "",
-    status: "Completed",
-    description: "Foundational Python programming, syntax, and practical exercises.",
-    skills: ["Python", "Scripting"],
-    verificationUrl: "#",
-    icon: "🐍"
-  },
-  {
-    name: "Foundations of Cyber Operations: FIU",
-    issuer: "Florida International University",
-    year: "",
-    status: "Completed",
-    description: "Core concepts in cybersecurity and operational security practices.",
-    skills: ["Cybersecurity", "Ops"],
-    verificationUrl: "#",
-    icon: "🛡️"
-  },
-  {
-    name: "AWS Academy Cloud Foundations",
-    issuer: "Amazon Web Services Training and Certification",
-    year: "",
-    status: "Completed",
-    description: "Introductory AWS cloud concepts, services, pricing, and architecture.",
-    skills: ["AWS", "Cloud"],
-    verificationUrl: "#",
-    icon: "☁️"
-  },
-  {
-    name: "Introduction to Node.js LFW111",
-    issuer: "The Linux Foundation",
-    year: "",
-    status: "Completed",
-    description: "Fundamentals of Node.js runtime, modules, and package ecosystem.",
-    skills: ["Node.js", "JavaScript"],
-    verificationUrl: "#",
-    icon: "🧩"
-  },
-  {
-    name: "Electrical Journeyman",
-    issuer: "Broward County Government",
-    year: "",
-    status: "Active",
-    description: "Journeyman-level electrical credential with emphasis on safety and code compliance.",
-    skills: ["Electrical Systems", "NFPA", "Safety"],
-    verificationUrl: "#",
-    icon: "⚡"
-  }
-];
-
-const courses = [
-  {
-    title: "Java Masterclass 2023",
-    platform: "Udemy",
-    instructor: "Tim Buchalka",
-    duration: "130+ Hours",
-    status: "Completed",
-    year: "2023",
-    description: "A complete Java course teaching core to advanced skills with real-world projects, certification prep, and lifetime updates.",
-    skills: ["Core Java programming", "Object-oriented programming (OOP)", "Java fundamentals for Spring, Java EE, and Android", "Java API"]
-  },
-  {
-    title: "Full-Stack Web Development Bootcamp",
-    platform: "Udemy",
-    instructor: "Dr. Angela Yu",
-    duration: "62+ hours",
-    status: "Completed",
-    year: "2021",
-    description: "The Complete Web Development Bootcamp is a 62+ hour, beginner-friendly course by Angela Yu that teaches full-stack development with modern tools (HTML, CSS, JavaScript, React, Node.js, SQL, Web3, etc.), guiding students through 32+ real-world projects to build a professional portfolio and become job-ready developers.",
-    skills: ["TypeScript", "React", "Generics", "Advanced Types", "Type Safety"]
-  }
-];
-
-const skills = [
-  { category: "Programming Languages", level: "Advanced", skills: ["JavaScript", "TypeScript", "Java", "C#", "Python"] },
-  { category: "Frontend Development", level: "Advanced", skills: ["React", "HTML", "CSS", "Tailwind CSS", "Vite"] },
-  { category: "Backend Development", level: "Intermediate", skills: ["Node.js", "Spring Boot", "Express.js", "REST APIs"] },
-  { category: "Database", level: "Intermediate", skills: ["MySQL", "MongoDB", "Database Design", "SQL"] },
-  { category: "Cloud & DevOps", level: "Beginner", skills: ["AWS", "Docker", "Vercel", "Git"] },
-  { category: "Tools & Others", level: "Advanced", skills: ["Git", "Postman", "Framer Motion", "Figma"] }
-];
+const fadeUp = (delay = 0) => ({
+  initial: { opacity: 0, y: 30 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.6, delay },
+});
 
 export default function Certifications() {
   return (
-    <div className="min-h-screen py-20">
+    <div className="min-h-screen py-20 bg-surface-0">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header Section */}
-        <motion.div 
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            Certifications & Learning
+
+        {/* Header */}
+        <motion.div className="text-center mb-16" {...fadeUp(0)}>
+          <p className="font-mono text-sm text-amber-400 tracking-widest uppercase mb-4">
+            // credentials
+          </p>
+          <h1 className="font-serif text-5xl md:text-6xl font-bold text-text-primary mb-6">
+            Certifications
           </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Continuous learning and professional development are key to staying current 
-            in the rapidly evolving field of software development.
+          <p className="text-lg text-text-muted max-w-2xl mx-auto">
+            Formal credentials and continuous learning that sharpen my technical edge.
           </p>
         </motion.div>
 
-        {/* Certifications */}
-        <motion.div 
-          className="mb-16"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-        >
-          <h2 className="text-3xl font-bold text-gray-900 mb-8">Professional Certifications</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Certification Grid */}
+        <motion.div className="mb-20" {...fadeUp(0.15)}>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {certifications.map((cert, index) => (
               <motion.div
-                key={cert.name}
-                initial={{ opacity: 0, y: 50 }}
+                key={cert.id}
+                initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
+                transition={{ duration: 0.5, delay: 0.1 + index * 0.08 }}
               >
-                <Card className="hover:shadow-lg transition-all duration-300 group h-full">
-                  <CardHeader>
-                    <div className="flex items-start justify-between">
-                      <div className="flex items-center gap-3">
-                        <div className="text-3xl">{cert.icon}</div>
-                        <div>
-                          <CardTitle className="text-lg group-hover:text-blue-600 transition-colors">
-                            {cert.name}
-                          </CardTitle>
-                          <p className="text-sm text-gray-600">{cert.issuer}</p>
-                        </div>
-                      </div>
-                      <Badge className={`${cert.status === 'Active' ? 'bg-green-100 text-green-700' : 'bg-blue-100 text-blue-700'}`}>
-                        {cert.status}
-                      </Badge>
+                <Card className="bg-surface-1 border-border-subtle hover:border-amber-400/40 transition-colors h-full group">
+                  <CardContent className="p-6 flex flex-col h-full">
+                    {/* Icon + Active badge row */}
+                    <div className="flex items-start justify-between mb-4">
+                      <span className="text-4xl leading-none">{cert.icon}</span>
+                      {cert.status === "Active" && (
+                        <Badge className="bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 text-xs font-mono">
+                          Active
+                        </Badge>
+                      )}
                     </div>
-                  </CardHeader>
-                  
-                  <CardContent>
-                    <div className="flex items-center gap-2 text-sm text-gray-500 mb-4">
-                      <Calendar className="w-4 h-4" />
-                      {cert.year}
-                    </div>
-                    
-                    <p className="text-gray-600 mb-4 text-sm leading-relaxed">
+
+                    {/* Name */}
+                    <h3 className="font-serif text-lg font-bold text-text-primary mb-1 group-hover:text-amber-400 transition-colors">
+                      {cert.name}
+                    </h3>
+
+                    {/* Issuer */}
+                    <p className="text-xs font-mono text-amber-400/70 mb-3">{cert.issuer}</p>
+
+                    {/* Description */}
+                    <p className="text-sm text-text-secondary leading-relaxed flex-1">
                       {cert.description}
                     </p>
-
-                    <div className="mb-4">
-                      <h4 className="font-semibold text-gray-900 mb-2 text-sm">Skills Gained:</h4>
-                      <div className="flex flex-wrap gap-1">
-                        {cert.skills.map((skill) => (
-                          <Badge key={skill} variant="outline" className="text-xs">
-                            {skill}
-                          </Badge>
-                        ))}
-                      </div>
-                    </div>
-
-                    {cert.verificationUrl !== "#" && (
-                      <a 
-                        href={cert.verificationUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-700 text-sm font-medium"
-                      >
-                        <ExternalLink className="w-3 h-3" />
-                        Verify Certificate
-                      </a>
-                    )}
                   </CardContent>
                 </Card>
               </motion.div>
@@ -199,103 +70,53 @@ export default function Certifications() {
           </div>
         </motion.div>
 
-        {/* Online Courses */}
-        <motion.div 
-          className="mb-16"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-        >
-          <h2 className="text-3xl font-bold text-gray-900 mb-8">Online Courses & Learning</h2>
-          <div className="space-y-6">
-            {courses.map((course, index) => (
-              <motion.div
-                key={course.title}
-                initial={{ opacity: 0, x: -50 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: 0.5 + index * 0.1 }}
-              >
-                <Card className="hover:shadow-lg transition-shadow">
-                  <CardContent className="p-6">
-                    <div className="flex items-start gap-4">
-                      <div className="p-3 bg-blue-100 rounded-lg flex-shrink-0">
-                        <BookOpen className="w-6 h-6 text-blue-600" />
-                      </div>
-                      
-                      <div className="flex-1">
-                        <div className="flex items-start justify-between mb-3">
-                          <div>
-                            <h3 className="text-xl font-bold text-gray-900 mb-1">{course.title}</h3>
-                            <p className="text-blue-600 font-semibold">{course.platform} • {course.instructor}</p>
-                          </div>
-                          <div className="flex flex-col gap-2">
-                            <Badge className={course.status === 'Completed' ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'}>
-                              {course.status}
-                            </Badge>
-                            <Badge variant="outline" className="text-xs">{course.year}</Badge>
-                          </div>
-                        </div>
-
-                        <div className="flex items-center gap-4 text-sm text-gray-500 mb-3">
-                          <span>Duration: {course.duration}</span>
-                        </div>
-
-                        <p className="text-gray-600 mb-4 leading-relaxed">
-                          {course.description}
-                        </p>
-
-                        <div className="flex flex-wrap gap-2">
-                          {course.skills.map((skill) => (
-                            <Badge key={skill} variant="outline" className="text-xs">
-                              {skill}
-                            </Badge>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
+        {/* Skill Proficiency Section */}
+        <motion.div className="mb-20" {...fadeUp(0.3)}>
+          <div className="text-center mb-10">
+            <p className="font-mono text-sm text-amber-400 tracking-widest uppercase mb-3">
+              // proficiency
+            </p>
+            <h2 className="font-serif text-4xl font-bold text-text-primary">
+              Skill Levels
+            </h2>
           </div>
-        </motion.div>
 
-        {/* Skills Assessment */}
-        <motion.div 
-          className="mb-16"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-        >
-          <h2 className="text-3xl font-bold text-gray-900 mb-8">Skills Assessment</h2>
           <div className="grid md:grid-cols-2 gap-6">
-            {skills.map((skillGroup, index) => (
+            {skills.map((skill, i) => (
               <motion.div
-                key={skillGroup.category}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.7 + index * 0.1 }}
+                key={skill.category}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.45, delay: i * 0.1 }}
               >
-                <Card className="hover:shadow-lg transition-shadow">
-                  <CardHeader>
-                    <div className="flex items-center justify-between">
-                      <CardTitle className="text-lg">{skillGroup.category}</CardTitle>
-                      <Badge 
-                        className={
-                          skillGroup.level === 'Advanced' ? 'bg-green-100 text-green-700' :
-                          skillGroup.level === 'Intermediate' ? 'bg-yellow-100 text-yellow-700' :
-                          'bg-blue-100 text-blue-700'
-                        }
-                      >
-                        {skillGroup.level}
-                      </Badge>
+                <Card className="bg-surface-1 border-border-subtle h-full">
+                  <CardContent className="p-6">
+                    <div className="flex items-center justify-between mb-3">
+                      <h3 className="font-semibold text-text-primary">{skill.category}</h3>
+                      <span className="text-xs font-mono text-amber-400">{skill.level}%</span>
                     </div>
-                  </CardHeader>
-                  <CardContent>
+
+                    {/* Animated progress bar */}
+                    <div className="h-1.5 bg-surface-2 rounded-full mb-4 overflow-hidden">
+                      <motion.div
+                        className="h-full bg-amber-400 rounded-full"
+                        initial={{ width: 0 }}
+                        whileInView={{ width: `${skill.level}%` }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8, delay: 0.1 + i * 0.1, ease: "easeOut" }}
+                      />
+                    </div>
+
+                    {/* Tech pills */}
                     <div className="flex flex-wrap gap-2">
-                      {skillGroup.skills.map((skill) => (
-                        <Badge key={skill} variant="outline" className="text-xs">
-                          {skill}
+                      {skill.items.map((item) => (
+                        <Badge
+                          key={item}
+                          variant="secondary"
+                          className="text-xs bg-surface-2 text-text-secondary border-0"
+                        >
+                          {item}
                         </Badge>
                       ))}
                     </div>
@@ -306,36 +127,41 @@ export default function Certifications() {
           </div>
         </motion.div>
 
-        {/* Learning Philosophy */}
-        <motion.div 
-          className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-8 text-center"
+        {/* Continuous Learning CTA */}
+        <motion.div
           initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
         >
-          <h3 className="text-2xl font-bold text-gray-900 mb-4">Continuous Learning Philosophy</h3>
-          <p className="text-gray-600 mb-6 max-w-3xl mx-auto">
-            Technology evolves rapidly, and I believe in staying current through continuous learning. 
-            My approach combines formal certifications with hands-on practice, online courses, 
-            and real-world project experience to build a comprehensive skill set.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a 
-              href="mailto:michelhm22@icloud.com"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-            >
-              <CheckCircle className="w-5 h-5" />
-              Discuss Learning Goals
-            </a>
-            <a 
-              href="/Projects"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-gray-800 text-white rounded-lg hover:bg-gray-900 transition-colors"
-            >
-              <Code className="w-5 h-5" />
-              See Applied Skills
-            </a>
+          <div className="bg-surface-1 border border-border-subtle rounded-2xl p-10 text-center">
+            <h3 className="font-serif text-3xl font-bold text-text-primary mb-4">
+              Continuous Learning
+            </h3>
+            <p className="text-text-secondary mb-8 max-w-2xl mx-auto leading-relaxed">
+              Technology evolves fast — and so do I. I combine formal certifications with
+              hands-on projects and real-world problem solving to stay sharp and keep
+              delivering quality software.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <a
+                href="mailto:michelhm22@icloud.com"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-amber-400 text-surface-0 font-semibold rounded-lg hover:bg-amber-300 transition-colors"
+              >
+                <CheckCircle className="w-5 h-5" />
+                Discuss Learning Goals
+              </a>
+              <a
+                href="/Projects"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-surface-2 text-text-primary border border-border-subtle rounded-lg hover:border-amber-400/60 transition-colors"
+              >
+                <Code className="w-5 h-5" />
+                See Applied Skills
+              </a>
+            </div>
           </div>
         </motion.div>
+
       </div>
     </div>
   );
