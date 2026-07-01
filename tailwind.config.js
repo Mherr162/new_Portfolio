@@ -11,7 +11,7 @@ export default {
   safelist: [
     { pattern: /bg-(green|blue|purple|orange|red|yellow)-(100|500|600)/ },
     { pattern: /text-(green|blue|purple|orange|red|yellow)-(600|700)/ },
-    { pattern: /border-(green|blue|purple|orange|red|yellow)-(200|300)/ },
+    { pattern: /border-(green|blue|purple|orange|red|yellow)-(200|300|500)/ },
   ],
   theme: {
     extend: {
